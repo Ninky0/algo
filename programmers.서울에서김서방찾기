@@ -1,0 +1,18 @@
+class Solution {
+    public String solution(String[] seoul) {
+        String answer = "";
+        int size = seoul.length;
+        int place = 0;                   //김서방의 위치를 저장할 위치변수
+        
+        for(int i=0; i<size;i++){
+            if(seoul[i].equals("Kim")){   //문자열 비교해서 같다면
+                place = i;                //해당 인덱스의 값을 위치변수에 저장하기
+                break;
+            }
+        }
+        
+        answer = "김서방은 "+place+"에 있다";
+        
+        return answer;
+    }
+}
