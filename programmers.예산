@@ -1,0 +1,20 @@
+import java.util.Arrays;
+
+class Solution {
+    public int solution(int[] d, int budget) { //main에서 전달받은 신청금액배열과 총 예산
+        int answer = 0;
+		    int size = d.length;
+		    int sum = 0;
+
+		    Arrays.sort(d);  // 신청금액이 작은 순서대로 정렬하기
+		
+		    for(int i=0;i<size;i++) {
+			      if((sum+d[i])<=budget) {  //신청금액을 최근 총합금액에 더했을때, 총 예산보다 작다면
+				        sum+=d[i];    // 총합금액에 신청금액을 더하는걸 진행시킴(결재승인)
+				        answer++;     // 신청금액 더하는 것을 승인했으므로, 부서 개수 +1 카운트
+			      }
+		    }
+		
+		    return answer;
+    }
+}
