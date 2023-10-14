@@ -1,0 +1,53 @@
+package programmers.소수만들기;
+
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+
+	static int N, R;
+	static int[] ans;
+	static int count;
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] nums = { 1, 2, 7, 6, 4 };
+		Solution sol = new Solution();
+
+		System.out.println(sol.solution(nums));
+
+	}
+
+	public int solution(int[] nums) {
+		int answer = -1;
+		N = nums.length;
+		R = 3;
+
+		ans = new int[R]; // 뽑을 수(3)의 크기로 0으로 초기화
+
+		nCr(0, 0, nums);  //뽑기 시~작!
+
+		answer = count;
+
+		return answer;
+	}
+
+	public static void nCr(int cnt, int start, int[] nums) {
+		if (cnt == R) {    //세번 다 뽑았다면
+			int sum = ans[0] + ans[1] + ans[2];  //뽑은 세개를 더해보자
+			if (sum % 2 != 0 && sum % 5 != 0 && sum % 3 != 0) {    //소수냐 아니냐 판별
+				count++;  //소수라면 갯수카운트+1
+			}
+			return;
+		}
+		/*
+		 * 현재 자리에 시작 위치 수 부터 끝 위치 수까지 시도.
+		 */
+		for (int i = start; i < N; i++) {
+			ans[cnt] = nums[i];
+			nCr(cnt + 1, i + 1, nums);
+		}
+	}
+ //뭐가틀린걸까 모르겠다
+
+}
