@@ -1,0 +1,24 @@
+class Solution {
+    public static int numJewelsInStones(String jewels, String stones) {
+        int count = 0;
+        HashSet<Character> room = new HashSet<>();
+        
+        for(char jewLetter : jewels.toCharArray()){
+            room.add(jewLetter);
+        }
+        
+        for(char stonLetter : stones.toCharArray()){
+            if(room.contains(stonLetter)){
+                count++;
+            }
+        }
+
+        return count;
+    }
+
+    public static void main(String[] args){
+        String jewels = "aA";
+        String stones = "aAAbbbb";
+        System.out.println(numJewelsInStones(jewels,stones));
+    }
+}
