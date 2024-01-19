@@ -1,0 +1,24 @@
+class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        int left = 0;
+        int right = numbers.length-1;
+
+        int sum = numbers[left]+numbers[right];
+
+        while(sum!=target){
+            
+            // 오름차순이므로
+            // target보다 작으면 작은 값을 키워줌
+            if(sum<target){
+                left++;
+            }
+            // target보다 크면 큰 값을 줄여줌
+            else right--;
+
+        }
+
+        // 합이 target과 같아진 순간 while문을 빠져나옴.
+        // 그 때의 left값과 right값에 1씩 더해준 인덱스 배열을 반환
+        return new int[]{left+1,right+1};
+    }
+}
