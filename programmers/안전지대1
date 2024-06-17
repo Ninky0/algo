@@ -1,0 +1,60 @@
+package programmers;
+
+public class safePlace1 {
+    public static void main(String[] args) {
+
+        Solution1 solution = new Solution1();
+
+        int[][] board = {{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,1,1,0},{0,0,0,0,0}};
+
+        System.out.println(solution.solution(board));
+    }
+
+}
+
+class Solution1 {
+    static int[] x = { 0, 1, 1, 1, 0, -1, -1, -1 };
+    static int[] y = { 1, 1, 0, -1, -1, -1, 0, 1 };
+
+    public int solution(int[][] board) {
+        int answer = 0;
+        int num = board.length;
+
+        boolean[][] flag = new boolean[num][num];
+
+        for (int i = 0; i < num; i++) {
+            for (int j = 0; j < num; j++) {
+                if (board[i][j] == 1) {
+                    flag[i][j] = true;
+                }
+            }
+        }
+
+
+        for (int i = 0; i < num; i++) {
+            for (int j = 0; j < num; j++) {
+                if (flag[i][j]) {
+
+                    for (int d = 0; d < 8; d++) {
+                        int aroundX = i + x[d];
+                        int aroundY = j + y[d];
+
+                        if (board[i][j] == 1 && aroundX >= 0 && aroundX < num && aroundY >= 0 && aroundY < num) {
+                            flag[aroundX][aroundY] = true;
+                        }
+
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < num; i++) {
+            for (int j = 0; j < num; j++) {
+                if (flag[i][j] == false) {
+                    answer++;
+                }
+            }
+        }
+        return answer;
+    }
+}
