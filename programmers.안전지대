@@ -1,0 +1,52 @@
+package programmers;
+
+public class safePlace2 {
+    public static void main(String[] args) {
+
+        Solution2 solution = new Solution2();
+
+        int[][] board = {{0,0,0,0,0},{0,0,0,0,0},{0,0,0,0,0},{0,0,1,1,0},{0,0,0,0,0}};
+
+        System.out.println(solution.solution(board));
+    }
+
+}
+
+class Solution2 {
+    public int solution(int[][] board) {
+        int answer = 0;
+
+        int n = board.length;
+
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                if(board[i][j] == 1) {
+                    flag(board, n, i, j);
+                }
+            }
+        }
+
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                if(board[i][j] == 0) {
+                    answer ++;
+                }
+            }
+        }
+
+        return answer;
+    }
+
+    private void flag(int[][] board, int n, int i, int j) {
+        int[][] directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}, {-1, -1}, {-1, 1}, {1, -1}, {1, 1}};
+        for(int[] direct : directions) {
+            int x = i + direct[0];
+            int y = j + direct[1];
+
+            if(x>=0 && x<n && y>=0 && y<n && board[x][y] == 0) {
+                board[x][y] = -1;
+            }
+        }
+    }
+
+}
