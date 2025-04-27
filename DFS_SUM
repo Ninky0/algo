@@ -1,0 +1,73 @@
+
+import java.util.*;
+
+public class sum {
+
+    static List<Integer> priceList = new ArrayList<>();
+    static int target = 200000; // 기본값, 사용자 입력으로 덮어씀
+    static int bestSum = 0;
+    static List<Integer> bestCombination = new ArrayList<>();
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // 1. 목표 금액 입력
+        System.out.print("목표 금액을 입력하세요: ");
+        target = scanner.nextInt();
+
+        // 2. 금액들 입력
+        System.out.println("금액을 하나씩 입력(엔터)하세요 (0 입력 시 종료):");
+        while (true) {
+            int input = scanner.nextInt();
+            if (input == 0) {
+                break;
+            }
+            priceList.add(input);
+        }
+
+        // 배열로 변환
+        int[] prices = new int[priceList.size()];
+        for (int i = 0; i < priceList.size(); i++) {
+            prices[i] = priceList.get(i);
+        }
+
+        // 탐색 시작
+        dfs(prices, 0, 0, new ArrayList<>());
+
+        // 결과 출력
+        System.out.println("\n목표 금액 이하 최대 합계: " + bestSum);
+        System.out.println("조합된 인덱스(1부터 시작): " + bestCombination);
+
+        int sum = 0;
+        System.out.println("\n선택된 항목 금액 목록:");
+        for (int idx : bestCombination) {
+            int price = prices[idx - 1];
+            System.out.println(idx + "번 금액: " + price);
+            sum += price;
+        }
+
+        System.out.println("\n==> 선택된 금액 총합: " + sum);
+    }
+
+    // DFS 탐색
+    static void dfs(int[] prices, int index, int currentSum, List<Integer> currentCombination) {
+        if (currentSum > target) {
+            return; // 목표 초과시 무시
+        }
+        if (currentSum > bestSum) {
+            bestSum = currentSum;
+            bestCombination = new ArrayList<>(currentCombination);
+        }
+        if (index == prices.length) {
+            return;
+        }
+
+        // 현재 인덱스 선택하는 경우
+        currentCombination.add(index + 1); // 1번부터 표시
+        dfs(prices, index + 1, currentSum + prices[index], currentCombination);
+
+        // 현재 인덱스 선택 안 하는 경우
+        currentCombination.remove(currentCombination.size() - 1);
+        dfs(prices, index + 1, currentSum, currentCombination);
+    }
+}
